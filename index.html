@@ -1,0 +1,682 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitTrack - Fitness Tracker</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7f6;
+            color: #222;
+        }
+
+        /* NAVBAR */
+        nav {
+            background: #111827;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav h1 {
+            color: #22c55e;
+            font-size: 25px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        nav ul li a:hover {
+            color: #22c55e;
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, #111827, #14532d);
+            color: white;
+            padding: 70px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 400px;
+        }
+
+        .hero-text {
+            max-width: 600px;
+        }
+
+        .hero h2 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .hero h2 span {
+            color: #22c55e;
+        }
+
+        .hero p {
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            background: #22c55e;
+            color: white;
+            border: none;
+            padding: 13px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #16a34a;
+        }
+
+        .hero-icon {
+            font-size: 150px;
+        }
+
+        /* CONTAINER */
+        .container {
+            width: 86%;
+            margin: auto;
+            padding: 50px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-title h2 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .section-title p {
+            color: #666;
+        }
+
+        /* DASHBOARD CARDS */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            color: #555;
+            font-size: 16px;
+        }
+
+        .card .number {
+            font-size: 30px;
+            font-weight: bold;
+            margin: 8px 0;
+        }
+
+        .progress {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            margin-top: 12px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #22c55e;
+            border-radius: 10px;
+        }
+
+        /* TRACKER */
+        .tracker {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .tracker-box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .tracker-box h3 {
+            margin-bottom: 20px;
+            font-size: 21px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            outline: none;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            border-color: #22c55e;
+        }
+
+        /* GOALS */
+        .goals {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .goal-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .goal-card .emoji {
+            font-size: 45px;
+            margin-bottom: 10px;
+        }
+
+        .goal-card h3 {
+            margin-bottom: 10px;
+        }
+
+        /* TABLE */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #111827;
+            color: white;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #111827;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        footer span {
+            color: #22c55e;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width: 900px) {
+            .dashboard {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .goals {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                gap: 30px;
+            }
+
+            .tracker {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width: 600px) {
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                gap: 12px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h2 {
+                font-size: 35px;
+            }
+
+            .hero-icon {
+                font-size: 100px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+    <h1>FitTrack 🏃</h1>
+
+   <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#dashboard">Dashboard</a></li>
+    <li><a href="#tracker">Tracker</a></li>
+    <li><a href="#goals">Goals</a></li>
+    <li><a href="#progress">Progress</a></li>
+
+    <li>
+        <a href="register.html">Register</a>
+    </li>
+</ul>
+</nav>
+
+
+<!-- HERO SECTION -->
+<section class="hero" id="home">
+
+    <div class="hero-text">
+        <h2>Track Your <span>Fitness.</span></h2>
+
+        <p>
+            Your personal fitness companion to monitor workouts,
+            steps, calories, water intake, sleep and daily progress.
+        </p>
+
+        <button class="btn" onclick="scrollToTracker()">
+            Start Tracking
+        </button>
+    </div>
+
+    <div class="hero-icon">
+        🏋️
+    </div>
+
+</section>
+
+
+<!-- DASHBOARD -->
+<section class="container" id="dashboard">
+
+    <div class="section-title">
+        <h2>Today's Dashboard</h2>
+        <p>Keep track of your daily health activities</p>
+    </div>
+
+    <div class="dashboard">
+
+        <div class="card">
+            <div class="card-icon">👟</div>
+            <h3>Steps</h3>
+            <div class="number" id="stepsDisplay">6,540</div>
+            <p>Goal: 10,000 steps</p>
+
+            <div class="progress">
+                <div class="progress-bar" style="width:65%"></div>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-icon">🔥</div>
+            <h3>Calories Burned</h3>
+            <div class="number" id="calorieDisplay">420</div>
+            <p>Goal: 600 kcal</p>
+
+            <div class="progress">
+                <div class="progress-bar" style="width:70%"></div>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-icon">💧</div>
+            <h3>Water</h3>
+            <div class="number" id="waterDisplay">5</div>
+            <p>Glasses / 8 glasses</p>
+
+            <div class="progress">
+                <div class="progress-bar" style="width:62%"></div>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-icon">😴</div>
+            <h3>Sleep</h3>
+            <div class="number">7.5 hrs</div>
+            <p>Goal: 8 hours</p>
+
+            <div class="progress">
+                <div class="progress-bar" style="width:94%"></div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- TRACKER -->
+<section class="container" id="tracker">
+
+    <div class="section-title">
+        <h2>Daily Tracker</h2>
+        <p>Enter your daily fitness information</p>
+    </div>
+
+    <div class="tracker">
+
+        <!-- ACTIVITY -->
+        <div class="tracker-box">
+
+            <h3>🏃 Activity Details</h3>
+
+            <div class="input-group">
+                <label>Steps</label>
+                <input type="number" id="stepsInput" placeholder="Enter steps">
+            </div>
+
+            <div class="input-group">
+                <label>Calories Burned</label>
+                <input type="number" id="calorieInput" placeholder="Enter calories">
+            </div>
+
+            <div class="input-group">
+                <label>Workout</label>
+
+                <select id="workout">
+                    <option>Walking</option>
+                    <option>Running</option>
+                    <option>Gym</option>
+                    <option>Yoga</option>
+                    <option>Badminton</option>
+                    <option>Cycling</option>
+                </select>
+            </div>
+
+            <button class="btn" onclick="updateActivity()">
+                Update Activity
+            </button>
+
+        </div>
+
+
+        <!-- HEALTH -->
+        <div class="tracker-box">
+
+            <h3>❤️ Health Details</h3>
+
+            <div class="input-group">
+                <label>Water Glasses</label>
+                <input type="number" id="waterInput" placeholder="Enter glasses">
+            </div>
+
+            <div class="input-group">
+                <label>Sleep Hours</label>
+                <input type="number" id="sleepInput" placeholder="Enter sleep hours">
+            </div>
+
+            <div class="input-group">
+                <label>Weight (kg)</label>
+                <input type="number" id="weightInput" placeholder="Enter weight">
+            </div>
+
+            <button class="btn" onclick="updateHealth()">
+                Save Health Data
+            </button>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- GOALS -->
+<section class="container" id="goals">
+
+    <div class="section-title">
+        <h2>Fitness Goals</h2>
+        <p>Set goals and stay motivated</p>
+    </div>
+
+    <div class="goals">
+
+        <div class="goal-card">
+            <div class="emoji">👟</div>
+            <h3>10,000 Steps</h3>
+            <p>Walk every day and stay active.</p>
+
+            <div class="progress">
+                <div class="progress-bar" style="width:65%"></div>
+            </div>
+        </div>
+
+
+        <div class="goal-card">
+            <div class="emoji">💧</div>
+            <h3>8 Glasses Water</h3>
+            <p>Stay hydrated throughout the day.</p>
+
+            <div class="progress">
+                <div class="progress-bar" style="width:62%"></div>
+            </div>
+        </div>
+
+
+        <div class="goal-card">
+            <div class="emoji">🏋️</div>
+            <h3>30 Min Workout</h3>
+            <p>Complete your daily workout.</p>
+
+            <div class="progress">
+                <div class="progress-bar" style="width:80%"></div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- WEEKLY PROGRESS -->
+<section class="container" id="progress">
+
+    <div class="section-title">
+        <h2>Weekly Progress</h2>
+        <p>Monitor your fitness journey</p>
+    </div>
+
+    <table>
+
+        <tr>
+            <th>Day</th>
+            <th>Steps</th>
+            <th>Calories</th>
+            <th>Water</th>
+            <th>Workout</th>
+        </tr>
+
+        <tr>
+            <td>Monday</td>
+            <td>8,200</td>
+            <td>450 kcal</td>
+            <td>7 glasses</td>
+            <td>Running</td>
+        </tr>
+
+        <tr>
+            <td>Tuesday</td>
+            <td>7,500</td>
+            <td>390 kcal</td>
+            <td>6 glasses</td>
+            <td>Walking</td>
+        </tr>
+
+        <tr>
+            <td>Wednesday</td>
+            <td>9,100</td>
+            <td>510 kcal</td>
+            <td>8 glasses</td>
+            <td>Gym</td>
+        </tr>
+
+        <tr>
+            <td>Thursday</td>
+            <td>6,800</td>
+            <td>420 kcal</td>
+            <td>7 glasses</td>
+            <td>Yoga</td>
+        </tr>
+
+        <tr>
+            <td>Friday</td>
+            <td>10,200</td>
+            <td>620 kcal</td>
+            <td>8 glasses</td>
+            <td>Running</td>
+        </tr>
+
+    </table>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+
+    <h3>FitTrack 🏃</h3>
+
+    <p>
+        Track your health. Build healthy habits. Reach your goals.
+    </p>
+
+    <br>
+
+    <p>
+        © 2026 <span>FitTrack</span> | Fitness Tracker Project
+    </p>
+
+</footer>
+
+
+<!-- JAVASCRIPT -->
+<script>
+
+    function scrollToTracker() {
+        document.getElementById("tracker").scrollIntoView({
+            behavior: "smooth"
+        });
+    }
+
+
+    function updateActivity() {
+
+        let steps = document.getElementById("stepsInput").value;
+        let calories = document.getElementById("calorieInput").value;
+
+        if (steps !== "") {
+            document.getElementById("stepsDisplay").innerText =
+                Number(steps).toLocaleString();
+        }
+
+        if (calories !== "") {
+            document.getElementById("calorieDisplay").innerText =
+                calories;
+        }
+
+        alert("Activity updated successfully! 💪");
+    }
+
+
+    function updateHealth() {
+
+        let water = document.getElementById("waterInput").value;
+        let sleep = document.getElementById("sleepInput").value;
+        let weight = document.getElementById("weightInput").value;
+
+        if (water !== "") {
+            document.getElementById("waterDisplay").innerText = water;
+        }
+
+        alert(
+            "Health data saved successfully! ❤️\n" +
+            "Water: " + water + " glasses\n" +
+            "Sleep: " + sleep + " hours\n" +
+            "Weight: " + weight + " kg"
+        );
+    }
+
+</script>
+
+</body>
+</html>
+```
